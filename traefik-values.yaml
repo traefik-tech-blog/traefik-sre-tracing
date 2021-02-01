@@ -1,0 +1,4 @@
+additionalArguments:
+  - "--tracing.jaeger=true"
+  - "--tracing.jaeger.samplingServerURL=http://jaeger-agent.default.svc:5778/sampling"
+  - "--tracing.jaeger.localAgentHostPort=jaeger-agent.default.svc:6831"

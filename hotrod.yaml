@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotrod
+  labels:
+    app: hotrod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotrod
+  template:
+    metadata:
+      labels:
+        app: hotrod
+    spec:
+      containers:
+      - image: docker.io/jaegertracing/example-hotrod
+        name: hotrod
+        env:
+        - name: JAEGER_AGENT_HOST
+          value: "jaeger-agent.default.svc"
+        - name: JAEGER_AGENT_PORT
+          value: "6831"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotrod
+spec:
+  ports:
+  - name: hotrod
+    port: 8000
+    targetPort: 8080
+  selector:
+    app: hotrod
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hotrod
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`hotrod.local`)
+    kind: Rule
+    services:
+    - name: hotrod
+      port: 8000
