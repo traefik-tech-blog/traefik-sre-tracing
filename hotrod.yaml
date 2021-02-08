@@ -45,7 +45,7 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`hotrod.local`)
+  - match: Host(`hotrod.localhost`)
     kind: Rule
     services:
     - name: hotrod
