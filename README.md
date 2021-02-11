@@ -1,5 +1,5 @@
-# treafik-k3s-tracing
+# treafik-sre-tracing
 
 The repository contains configuration for the following components :
  - Jaeger
- - Hot Ride On Demand
+ - Hot R.O.D. - Rides On Demand
